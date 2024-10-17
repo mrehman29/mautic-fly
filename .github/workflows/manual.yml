@@ -55,6 +55,6 @@ jobs:
       run: |
         export FLYCTL_INSTALL="/home/runner/.fly"
         export PATH="$FLYCTL_INSTALL/bin:$PATH"
-        flyctl auth token $FLY_API_TOKEN
+        fly tokens create deploy  -t $FLY_API_TOKEN
         flyctl launch --name mautic-db --no-deploy
       
