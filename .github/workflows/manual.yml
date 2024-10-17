@@ -59,5 +59,7 @@ jobs:
 
     - name: fly launch mautic-db no-deploy
       run: |
+        export FLYCTL_INSTALL="/home/runner/.fly"
+        export PATH="$FLYCTL_INSTALL/bin:$PATH"
         flyctl launch --name mautic-db --no-deploy
       
