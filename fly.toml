@@ -1,0 +1,20 @@
+# fly.toml app configuration file generated for mautic-fly on 2024-10-17T23:08:48+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+primary_region = 'lhr'
+
+app = "mautic-db"
+
+[env]
+  MYSQL_ROOT_PASSWORD = "changeme"
+  MYSQL_DATABASE = "mautic_db"
+  MYSQL_USER = "mautic_db_user"
+  MYSQL_PASSWORD = "mautic_db_pwd"
+
+[[services]]
+  internal_port = 3306
+  protocol = "tcp"
+  [[services.ports]]
+    port = 3306
