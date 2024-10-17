@@ -25,6 +25,8 @@ jobs:
         FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
         MAUTIC_PASSWORD: ${{ secrets.MAUTIC_PASSWORD }}
       run: |
+        echo $FLY_API_TOKEN
+        echo $MAUTIC_PASSWORD
         error_missing_secrets=()
         check_secret() {
           if [ -z "${!1}" ]; then
@@ -39,5 +41,6 @@ jobs:
           echo "Error: Missing required secrets: ${error_missing_secrets[*]}"
           exit 1
         fi
+      
 
       
