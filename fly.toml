@@ -1,20 +1,36 @@
-# fly.toml app configuration file generated for mautic-fly on 2024-10-17T23:08:48+01:00
+# fly.toml app configuration file generated for mautic-db-test on 2024-10-18T00:13:45+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
+app = 'mautic-db-test'
 primary_region = 'lhr'
 
-app = "mautic-db"
+[build]
+  image = 'mysql:8.0'
+
+# The [processes] section is different for 8+, 8.4, and 5.7. Use the one that matches your version.
+# Use the following for versions 8 to 8.3:
+[processes]
+  app = """--datadir /datasql/mysql \
+    --default-authentication-plugin mysql_native_password"""
+
+# Uncomment and use the following for 8.4:
+# [processes]
+#  app = """--datadir /data/mysql \
+#    --mysql-native-password=ON"""
+
+# Uncomment and use the following for 5.7:
+# [processes]
+#  app = "--datadir /data/mysql"
+
+# Add the following sections for all versions
+ [mounts]
+   source = "mysqldata"
+   destination = "/datasql"
 
 [env]
-  MYSQL_ROOT_PASSWORD = "changeme"
-  MYSQL_DATABASE = "mautic_db"
-  MYSQL_USER = "mautic_db_user"
-  MYSQL_PASSWORD = "mautic_db_pwd"
-
-[[services]]
-  internal_port = 3306
-  protocol = "tcp"
-  [[services.ports]]
-    port = 3306
+  MYSQL_ROOT_PASSWORD = "your-root-password"
+  MYSQL_DATABASE = "your-database"
+  MYSQL_USER = "your-username"
+  MYSQL_PASSWORD = "your-password"

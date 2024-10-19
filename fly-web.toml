@@ -3,13 +3,15 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'mautic-web'
+app = 'mautic-web-withered-smoke-4975'
 primary_region = 'lhr'
 
 [build]
   image = 'mautic/mautic'
 
 [env]
+  DOCKER_MAUTIC_LOAD_TEST_DATA = 'false'
+  DOCKER_MAUTIC_RUN_MIGRATIONS = 'true'
   MAUTIC_DB_DATABASE = 'your-database'
   MAUTIC_DB_HOST = 'mautic-db-test.internal'
   MAUTIC_DB_PASSWORD = 'your-password'
@@ -18,7 +20,7 @@ primary_region = 'lhr'
   MAUTIC_MESSENGER_DSN_EMAIL = 'doctrine://default'
   MAUTIC_MESSENGER_DSN_HIT = 'doctrine://default'
 
-[mounts]
+[[mounts]]
   source = "mauticweb"
   destination = "/var/www/html/config"
 
