@@ -1,0 +1,36 @@
+# fly.toml app configuration file generated for mautic-web-withered-smoke-4975 on 2024-10-18T23:24:07+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'mautic-web'
+primary_region = 'lhr'
+
+[build]
+  image = 'mautic/mautic'
+
+[env]
+  MAUTIC_DB_DATABASE = 'your-database'
+  MAUTIC_DB_HOST = 'mautic-db-test.internal'
+  MAUTIC_DB_PASSWORD = 'your-password'
+  MAUTIC_DB_PORT = '3306'
+  MAUTIC_DB_USER = 'your-username'
+  MAUTIC_MESSENGER_DSN_EMAIL = 'doctrine://default'
+  MAUTIC_MESSENGER_DSN_HIT = 'doctrine://default'
+
+[mounts]
+  source = "mauticweb"
+  destination = "/var/www/html/config"
+
+[http_service]
+  internal_port = 80
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1

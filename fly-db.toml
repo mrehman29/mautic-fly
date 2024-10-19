@@ -1,0 +1,35 @@
+# fly.toml app configuration file generated for mautic-db-test on 2024-10-18T10:22:59+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'mautic-db-test'
+primary_region = 'lhr'
+
+[build]
+  image = 'mysql:8'
+
+[env]
+  MYSQL_DATABASE = 'your-database'
+  MYSQL_PASSWORD = 'your-password'
+  MYSQL_ROOT_PASSWORD = 'your-root-password'
+  MYSQL_USER = 'your-username'
+
+#[processes]
+#  app = """--datadir /data/mysql \
+#    --mysql-native-password=ON 
+#    --default-authentication-plugin mysql_native_password"""
+
+# Uncomment and use the following for 8.4:
+[processes]
+  app = """--datadir /data/mysql \
+    --mysql-native-password=ON"""
+
+[[mounts]]
+  source = 'mysqldata'
+  destination = '/data'
+
+[[vm]]
+  memory = '2gb'
+  cpu_kind = 'shared'
+  cpus = 1
